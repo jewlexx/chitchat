@@ -4,7 +4,7 @@
 
 -- Custom types
 create type public.app_permission as enum ('channels.delete', 'messages.delete');
-create type public.app_role as enum ('admin', 'moderator');
+create type public.app_role as enum ('admin');
 create type public.user_status as enum ('ONLINE', 'OFFLINE');
 
 -- USERS
@@ -110,8 +110,6 @@ begin
 
   if position('+supaadmin@' in new.email) > 0 then
     insert into public.user_roles (user_id, role) values (new.id, 'admin');
-  elsif position('+supamod@' in new.email) > 0 then
-    insert into public.user_roles (user_id, role) values (new.id, 'moderator');
   end if;
 
   return new;
@@ -160,4 +158,3 @@ insert into public.role_permissions (role, permission)
 values
     ('admin', 'channels.delete'),
     ('admin', 'messages.delete'),
-    ('moderator', 'messages.delete');
