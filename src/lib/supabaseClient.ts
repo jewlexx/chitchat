@@ -6,4 +6,11 @@ if (PUBLIC_SUPABASE_URL === undefined || PUBLIC_SUPABASE_ANON_KEY === undefined)
     throw new Error("Missing Supabase url or key");
 }
 
-export const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY)
+export const supabase = createClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
+    db: {
+        schema: 'public'
+    },
+    auth: {
+        persistSession: true,
+    },
+})
