@@ -4,12 +4,20 @@
 	let { supabase, session } = data;
 	$: ({ supabase, session } = data);
 
-	let messages = supabase.from('messages').select().then(console.log);
-	supabase.auth.getUser().then((user) => console.log(user.data.user?.email));
+	let messages = supabase
+		.from('messages')
+		.select()
+		.then((resp) => {
+			return resp.data ?? [];
+		});
 </script>
 
 <ul>
-	<!-- {#each messages as message}
-		<li>{message}</li>
-	{/each} -->
+	{#await messages}
+		<li>Loading Messages</li>
+	{:then messages}
+		{#each messages as message}
+			<li>{message}</li>
+		{/each}
+	{/await}
 </ul>
