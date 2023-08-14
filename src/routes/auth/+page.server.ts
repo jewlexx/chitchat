@@ -1,3 +1,5 @@
+import { fail } from "@sveltejs/kit"
+
 export const actions = {
     default: async ({ request, url, locals: { supabase } }) => {
         const formData = await request.formData()
