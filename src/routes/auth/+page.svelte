@@ -1,10 +1,38 @@
 <script lang="ts">
-	import { enhance } from '$app/forms'
-	export let form
+	export let data;
+	let { supabase } = data;
+	$: ({ supabase } = data);
+
+	let email: string;
+	let password: string;
+
+	const handleSignUp = async () => {
+		await supabase.auth.signUp({
+			email,
+			password,
+			options: {
+				emailRedirectTo: `${location.origin}/auth/callback`
+			}
+		});
+	};
+
+	const handleSignIn = async () => {
+		await supabase.auth.signInWithPassword({
+			email,
+			password
+		});
+	};
+
+	const handleSignOut = async () => {
+		await supabase.auth.signOut();
+	};
 </script>
 
-<form method="post" use:enhance>
-  <input name="email" value={form?.email ?? ''} />
-  <input type="password" name="password" />
-  <button>Sign up</button>
+<form on:submit={handleSignUp}>
+	<input name="email" bind:value={email} />
+	<input type="password" name="password" bind:value={password} />
+	<button>Sign up</button>
 </form>
+
+<button on:click={handleSignIn}>Sign in</button>
+<button on:click={handleSignOut}>Sign out</button>
