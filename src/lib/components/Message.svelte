@@ -7,8 +7,6 @@
 
   export let message: Database['public']['Tables']['messages']['Row'];
 
-  const userId = message.user_id;
-
   const user = supabase
     .from('users')
     .select('*')
