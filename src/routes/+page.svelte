@@ -19,7 +19,7 @@
     <li>Loading Messages</li>
   {:then messages}
     {#each messages as message}
-      <li>{message}</li>
+      <li class="message"><span>{message.user_id}</span> {message.message}</li>
     {/each}
   {/await}
 </ul>
@@ -31,3 +31,10 @@
 {:catch}
   <p>Failed to load user data</p>
 {/await}
+
+<style lang="postcss">
+  .message {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
