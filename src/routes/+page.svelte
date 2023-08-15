@@ -32,9 +32,13 @@
   <p>Failed to load user data</p>
 {/await}
 
-<style lang="postcss">
+<style lang="scss">
   .message {
     display: flex;
     flex-direction: column;
+
+    span {
+      color: red;
+    }
   }
 </style>
