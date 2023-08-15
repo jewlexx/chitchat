@@ -10,7 +10,8 @@ declare global {
       supabase: SupabaseClient<Database>;
       getSession(): Promise<Session | null>;
     }
-    interface PageData {
+    interface PageData  {
+      supabase: SupabaseClient<Database>;
       session: Session | null;
     }
     // interface Platform {}
